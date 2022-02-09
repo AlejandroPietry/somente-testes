@@ -7,7 +7,7 @@ namespace CertificadoDigitalHandler
         static void Main(string[] args)
         {
             ConsumindoSoapWs soapWs = new ConsumindoSoapWs();
-            soapWs.StartModo2();
+            soapWs.ManipulaXmlRetorno();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CertificadoDigitalHandler
@@ -16,9 +16,9 @@ namespace CertificadoDigitalHandler
 
             DirectoryInfo dir = new DirectoryInfo(path);
             FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
+            foreach (string fileName in files.Select(x => x.FullName))
             {
-                using (StreamReader sr = new StreamReader(file.FullName))
+                using (StreamReader sr = new StreamReader(fileName))
                 {
                     HttpClient client = new HttpClient();
                     var values = new Dictionary<string, string>
@@ -33,10 +33,11 @@ namespace CertificadoDigitalHandler
                     Console.WriteLine("Resposta: " + response.StatusCode);
                 }
                 Console.WriteLine("DOCUMENTO N - " + contador);
-                Console.WriteLine(file.FullName);
+                Console.WriteLine(fileName);
                 contador++;
             }
 
+            
             return Task.FromResult(0);
         }
     }
